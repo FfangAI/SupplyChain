@@ -1,0 +1,155 @@
+---
+import Features2 from '~/components/widgets/Features2.astro';
+import Features3 from '~/components/widgets/Features3.astro';
+import Hero from '~/components/widgets/Hero.astro';
+import Stats from '~/components/widgets/Stats.astro';
+import Steps2 from '~/components/widgets/Steps2.astro';
+import Layout from '~/layouts/PageLayout.astro';
+
+const metadata = {
+  title: 'About us',
+};
+---
+
+<Layout metadata={metadata}>
+  <!-- Hero Widget ******************* -->
+
+  <Hero
+    tagline="About us"
+    image={{
+      src: 'https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+      alt: 'Caos Image',
+    }}
+  >
+    <Fragment slot="title">
+      Empowering AI to Shape a <br />
+      <span class="text-accent dark:text-white highlight"> Safer Future</span>
+    </Fragment>
+
+    <Fragment slot="subtitle">
+      At AI4AI, our mission is to pioneer advanced standards for evaluating and improving artificial intelligence 
+      models. Designed for developers, researchers, and businesses, our platform addresses critical issues in AI 
+      model safety and ethics by identifying vulnerabilities that could lead to unintended consequences or harm. 
+      We believe that responsible, transparent, and secure AI begins with robust evaluation.
+
+    </Fragment>
+  </Hero>
+
+  <!-- Stats Widget ****************** -->
+
+  <Stats
+    title="Statistics about us"
+    stats={[
+      { title: 'Team Members', amount: '5' },
+      { title: 'Collective Years of Experience', amount: '15+' },
+      { title: 'AI Safety Metrics', amount: '10+' },
+      { title: 'Commitment to Ethical AI Practices', amount: '100%' },
+    ]}
+  />
+
+  <!-- Features3 Widget ************** -->
+
+  <Features3
+    title="What We Offer"
+    subtitle="With the increasing influence of AI, ensuring the ethical and secure deployment of these technologies is more important than ever. AI4AI is designed to serve as a definitive resource, whether you're an organization integrating AI or a developer refining a model. Our project brings together expertise in AI, ethics, and technology policy to provide a reliable framework, positioning AI4AI as a leader in the ethical advancement of artificial intelligence."
+    columns={3}
+    isBeforeContent={true}
+    items={[
+      {
+        title: 'AI Evaluation Standards',
+        description:
+          'Comprehensive metrics for assessing AI vulnerability and potential risks.',
+        icon: 'tabler:template',
+      },
+      {
+        title: 'Automated Testing Tools',
+        description:
+          'AI-driven analysis to quickly and effectively identify weaknesses across various models.',
+        icon: 'tabler:template',
+      },
+      {
+        title: 'Ethical and Procedural Guidelines',
+        description:
+          'Clear, actionable standards that prioritize user safety and model accountability.',
+        icon: 'tabler:template',
+      },
+    ]}
+  />
+
+  <!-- Steps2 Widget ****************** -->
+
+  <Steps2
+    title="Our values"
+    subtitle="AI4AI envisions a future where AI systems are universally trusted and secure. By implementing an objective and detailed testing framework, we enable AI creators to ensure their models align with global safety and ethical standards, building a foundation of trust between AI and its users."
+    items={[
+      {
+        title: 'Customer-centric approach',
+        description:
+          'We prioritize user trust and safety in every feature we develop, ensuring our AI solutions benefit both individuals and society.',
+      },
+      {
+        title: 'Constant Improvement',
+        description:
+          'Our team is dedicated to iterative learning, consistently enhancing our platform to meet the evolving landscape of AI.',
+      },
+      {
+        title: 'Ethical Practices',
+        description:
+          'At AI4AI, ethical responsibility is not optional. We rigorously adhere to ethical standards to ensure AI is a force for good.',
+      },
+    ]}
+  />
+
+  <!-- Features2 Widget ************** -->
+
+  <Features2
+    title="Meet Our Team"
+    subtitle='The AI4AI project team comprises passionate professionals with diverse expertise in AI, data analytics, engineering, and product development. Our combined experience across fields and industries drives our mission in AI evaluation and safety.'
+    tagline="Team"
+    columns={3}
+    items={[
+      {
+        title: 'Arvin Zou',
+        description: 'Sustainable Innovation & Data Analysis Specialist',
+      },
+      {
+        title: 'Jason Huang',
+        description: ' AI and Systems Architecture & Software Engineer',
+      },
+      {
+        title: 'Amanda Ye',
+        description: 'User Experience & Design Specialist',
+      },
+      {
+        title: 'Xuan Huang',
+        description: 'Product Strategy & Development Specialist',
+      },
+      {
+        title: 'Guanhua Fu',
+        description: 'Technical Development Engineer',
+      },
+    ]}
+  />
+
+  <!-- Features2 Widget ************** -->
+
+  <Features2
+    title="Technical Support"
+    tagline="Contact us"
+    columns={2}
+    items={[
+      {
+        title: 'Chat with us',
+        description:
+          '',
+        icon: 'tabler:messages',
+      },
+      {
+        title: 'Call us',
+        description:
+          '',
+        icon: 'tabler:headset',
+      },
+    ]}
+  />
+</Layout>

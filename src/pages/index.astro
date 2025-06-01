@@ -1,0 +1,529 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+
+import Hero from '~/components/widgets/Hero.astro';
+import Note from '~/components/widgets/Note.astro';
+import Features from '~/components/widgets/Features.astro';
+import Features2 from '~/components/widgets/Features2.astro';
+import Steps from '~/components/widgets/Steps.astro';
+import Content from '~/components/widgets/Content.astro';
+import BlogLatestPosts from '~/components/widgets/BlogLatestPosts.astro';
+import FAQs from '~/components/widgets/FAQs.astro';
+import Stats from '~/components/widgets/Stats.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+
+/*Top Website Tab*/
+const metadata = {
+  title: 'AI4AI - AI model evaluation and more',
+  ignoreTitleTemplate: true,
+};
+
+
+let isPaused = false;
+---
+
+<Layout metadata={metadata}>
+
+<!-- Rolling score Widget ******************* -->
+<div class="stock-banner" onMouseOver={() => isPaused = true} onMouseOut={() => isPaused = false}>
+  <div class="ticker" style={isPaused ? 'animation-play-state: paused;' : ''}>
+    {[...Array(2)].flatMap(() => [
+      { symbol: 'OpenAI ChatGPT', price: 97, change: 2.5, logo: '/logos/chatgpt-logo.png', url: 'https://www.openai.com' },
+      { symbol: 'Microsoft Copilot', price: 95, change: -1.2, logo: '/logos/microsoft_copilot.png' },
+      { symbol: 'Google Gemini', price: 93, change: -3.5, logo: '/logos/google-logo.png' },
+      { symbol: 'Meta Llama', price: 92, change: 1.5, logo: '/logos/meta-logo.png' },
+      // Duplicate more stock items if needed
+    ]).map(({ symbol, price, change, logo, url }) => (
+      <a href={url} target="_blank" class="stock-item">
+        <img src={logo} alt={`${symbol} logo`} class="stock-logo" />
+        <span class="stock-text mr-4">
+          {symbol}: {price} <span class={change >= 0 ? 'text-green-500' : 'text-red-500'}>({change}%)</span>
+        </span>
+      </a>
+    ))}
+  </div>
+</div>
+
+<style>
+  .stock-banner {
+    overflow: hidden;
+    white-space: nowrap;
+    display: flex;
+    padding: 10px;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+
+  .ticker {
+    display: inline-flex;
+    animation: ticker 30s linear infinite;
+  }
+
+  .stock-item {
+    display: flex;
+    align-items: center;
+    margin-right: 24px;
+    font-size: 16px;
+    color: #333;
+  }
+
+  .stock-logo {
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+  }
+
+  @keyframes ticker {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  .stock-banner:hover .ticker {
+    animation-play-state: paused;
+  }
+</style>
+
+
+  <!-- Hero Widget ******************* -->
+  <Hero
+    actions={[
+      {
+        variant: 'primary',
+        text: 'Try Now',
+        href: '../examples/login-v2.html',
+        // target: '_blank',
+        icon: 'tabler:ai',
+      },
+      {
+        text: 'Learn more',
+        href: '#features',
+      },
+    ]}
+  >
+    <Fragment slot="title">
+      Free tool <span class="hidden xl:inline">for Evaluating AI models</span>
+      <span class="text-accent dark:text-white highlight">with RACES</span> Framework
+    </Fragment>
+
+    <Fragment slot="subtitle">
+      <span class="hidden sm:inline">
+        <span class="font-semibold">AI 4 AI</span> is a free, customizable and production-ready AI evaluation tool for managing
+        complex Rights, Accuracy, Context, Ethical, and Safety considerations.</span
+      >
+      <span class="block mb-1 sm:hidden font-bold text-blue-600">AI4AI: Production-ready.</span>
+      Suitable for Startups, Small Business, Professional & Personal Use.
+    </Fragment>
+  </Hero>
+
+<!-- Features2 Widget ************** -->
+<Features2
+id="aiScores"
+title="AI Models"
+subtitle="Provides most recent scores for LLM AI models currently in the market"
+tagline="Previously evaluated"
+items={[
+  {
+    title: 'OpenAI ChatGPT',
+    description: `
+    <div class="mb-1">
+      <span class="text-black font-semibold">AI Score:</span>
+      <span class="text-green-500">80.5 (+1.6%)</span>
+    </div>
+    <div class="text-gray-500 text-sm">1 day ago</div>
+    `,
+    image: { src: '/logos/chatgpt-green-logo.png' },
+    graph: { src: 'chatgpt' },
+  },
+  {
+    title: 'Microsoft Copilot',
+    description: `
+    <div class="mb-1">
+      <span class="text-black font-semibold">AI Score:</span>
+      <span class="text-red-500">70.83 (-2%)</span>
+    </div>
+    <div class="text-gray-500 text-sm">3 days ago</div>
+    `,
+    image: { src: '/logos/microsoft_copilot.png' },
+    graph: { src: '-copilot' },
+  },
+  {
+    title: 'Google Gemini',
+    description: `
+    <div class="mb-1">
+      <span class="text-black font-semibold">AI Score:</span>
+      <span class="text-green-500">73.5 (+0.6%)</span>
+    </div>
+    <div class="text-gray-500 text-sm">3 days ago</div>
+    `,
+    image: { src: '/logos/google-logo.png' },
+    graph: { src: 'gemini' },
+  },
+  {
+    title: 'MetaAI Llama',
+    description: `
+    <div class="mb-1">
+      <span class="text-black font-semibold">AI Score:</span>
+      <span class="text-green-500">70.33 (-0.12%)</span>
+    </div>
+    <div class="text-gray-500 text-sm">2 days ago</div>
+    `,
+    image: { src: '/logos/meta-logo.png' },
+    graph: { src: '-llama' },
+  },
+  {
+    title: 'Anthropic Claude',
+    description: `
+    <div class="mb-1">
+      <span class="text-black font-semibold">AI Score:</span>
+      <span class="text-red-500">-- (--%)</span>
+    </div>
+    <div class="text-gray-500 text-sm">1 days ago</div>
+    `,
+    image: { src: '/logos/claude-logo.png' },
+  },
+  {
+    title: 'Mistral AI',
+    description: `
+    <div class="mb-1">
+      <span class="text-black font-semibold">AI Score:</span>
+      <span class="text-red-500">-- (--%)</span>
+    </div>
+    <div class="text-gray-500 text-sm">3 days ago</div>
+    `,
+    image: { src: '/logos/mistral-logo.png' },
+  },
+  {
+    title: 'xAI Grok',
+    description: `
+    <div class="mb-1">
+      <span class="text-black font-semibold">AI Score:</span>
+      <span class="text-red-500">-- (--%)</span>
+    </div>
+    <div class="text-gray-500 text-sm">3 days ago</div>
+    `,
+    image: { src: '/logos/xai-logo.png' },
+  },
+  {
+    title: 'Cohere AI',
+    description: `
+    <div class="mb-1">
+      <span class="text-black font-semibold">AI Score:</span>
+      <span class="text-red-500">-- (--%)</span>
+    </div>
+    <div class="text-gray-500 text-sm">3 days ago</div>
+    `,
+    image: { src: '/logos/cohere-logo.png' },
+  },
+  {
+    title: 'Microsoft Phi-3',
+    description: `
+    <div class="mb-1">
+      <span class="text-black font-semibold">AI Score:</span>
+      <span class="text-red-500">-- (--%)</span>
+    </div>
+    <div class="text-gray-500 text-sm">3 days ago</div>
+    `,
+    image: { src: '/logos/phi3-logo.png' },
+  },
+  {
+    title: 'Databricks DBRX',
+    description: `
+    <div class="mb-1">
+      <span class="text-black font-semibold">AI Score:</span>
+      <span class="text-red-500">-- (--%)</span>
+    </div>
+    <div class="text-gray-500 text-sm">3 days ago</div>
+    `,
+    image: { src: '/logos/databricks-logo.png' },
+  },
+  {
+    title: 'Alibaba Qwen',
+    description: `
+    <div class="mb-1">
+      <span class="text-black font-semibold">AI Score:</span>
+      <span class="text-red-500">-- (--%)</span>
+    </div>
+    <div class="text-gray-500 text-sm">3 days ago</div>
+    `,
+    image: { src: '/logos/qwen-logo.png' },
+  },
+  {
+    title: 'Perplexity AI',
+    description: `
+    <div class="mb-1">
+      <span class="text-black font-semibold">AI Score:</span>
+      <span class="text-red-500">-- (--%)</span>
+    </div>
+    <div class="text-gray-500 text-sm">3 days ago</div>
+    `,
+    image: { src: '/logos/perplexity-logo.png' },
+  },
+]}
+>
+<Fragment slot="bg">
+  <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
+</Fragment>
+</Features2>
+
+  <!-- Note Widget ******************* -->
+
+  <Note />
+
+  <!-- Features Widget *************** -->
+
+  <Features
+    id="features"
+    tagline="Features"
+    title="What you get with AI4AI"
+    subtitle="Experience one of the most advanced AI evaluation models available today, designed for precision, adaptability, and ease of use."
+    items={[
+      {
+        title: 'AI and RACES Integration',
+        description:
+          'RACES framework—Rights, Accuracy, Context, Ethics, and Safety. A seamless integration between AI and RACES frameworks that offer high productivity, performance and versatility.',
+        icon: 'tabler:brand-tailwind',
+      },
+      {
+        title: 'Ready-to-Use Online Tool',
+        description: 'Our online evaluation platform is designed for both professional and personal use. Whether you are a small business owner or an AI enthusiast, you can access a robust suite of evaluation tools anytime, anywhere.',
+        icon: 'tabler:components',
+      },
+      {
+        title: 'Real-Time Scoring Dashboard',
+        description: 'Stay up-to-date with live scores of popular AI models, refreshed in real-time like a stock market tracker. Compare performance metrics and make data-driven decisions.',
+        icon: 'tabler:list-check',
+      },
+      {
+        title: 'Personalized Evaluation Reports',
+        description: 'Receive detailed reports tailored to your AI models. These include an in-depth analysis of vulnerabilities, potential biases, and actionable improvement plans for enhanced safety and performance.',
+        icon: 'tabler:rocket',
+      },
+      {
+        title: 'Advanced Security Insights',
+        description: 'Identify potential AI vulnerabilities and harmful prompts. Our platform provides insights to improve model resilience against malicious attacks and misinformation.',
+        icon: 'tabler:arrows-right-left',
+      },
+      {
+        title: 'Improvement Services',
+        description: 'Go beyond evaluation with services that include AI fine-tuning, retraining, and optimization. Whether you are improving an existing model or developing a new one, we provide expert support.',
+        icon: 'tabler:bulb',
+      },
+    ]}
+  />
+
+  <!-- Content Widget **************** -->
+
+  <Content
+    isReversed
+    tagline="Advancing AI Trust"
+    title="Redefining AI Evaluation and Safety"
+    items={[
+      {
+        title: 'RACES Framework Integration',
+        description: 'Accuracy, Context, Ethics, and Safety (RACES) framework into the evaluation system for reliable AI assessments.',
+      },
+      {
+        title: 'Real-Time Vulnerability Detection: Developed real-time detection',
+        description: 'Mechanisms to identify and mitigate potential AI vulnerabilities and harmful prompts effectively.',
+      },
+      {
+        title: 'Dynamic Model Updates',
+        description: 'Updated with the latest datasets to provide up-to-date evaluations and maintain relevance in a rapidly evolving AI landscape.',
+      },
+    ]}
+    image={{
+      src: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+      alt: 'Colorful Image',
+    }}
+  >
+    <Fragment slot="content">
+      <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">Building on modern foundations</h3>
+      
+    </Fragment>
+
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
+    </Fragment>
+  </Content>
+
+  <!-- Content Widget **************** -->
+
+  <Content
+    isAfterContent
+    items={[
+      {
+        title: 'User-Friendly Interface',
+        description: `Built a highly intuitive dashboard, allowing users to access AI model evaluation results and recommendations effortlessly.`,
+      },
+      {
+        title: 'Cross-Platform Accessibility',
+        description: 'Optimized tools for desktop and mobile browsers, ensuring evaluations can be conducted anytime, anywhere.',
+      },
+      {
+        title: 'Leaderboard with Real-Time Updates',
+        description: 'Introduced a dynamic leaderboard showcasing the latest scores of popular AI models, updated in real time like a stock market tracker.',
+      },
+      {
+        title: 'Personalized Insights',
+        description: 'Designed a tailored evaluation report for users AI models, providing actionable improvement plans and suggestions.',
+      },
+    ]}
+    image={{
+      src: 'https://images.unsplash.com/photo-1600132806370-bf17e65e942f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2194&q=80',
+      alt: 'Blueprint Image',
+    }}
+  >
+    <Fragment slot="content">Experience ready-to-use online tools designed for both professional and personal AI evaluations.</Fragment>
+
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
+    </Fragment>
+  </Content>
+
+  <!-- Content Widget **************** -->
+
+  <Content
+    isReversed
+    isAfterContent
+    items={[
+      {
+        title: 'Ethical Standards Advocacy',
+        description: 'Integrated tools and insights to help users meet ethical benchmarks in AI development.',
+      },
+      {
+        title: 'Harmful Prompt Resilience',
+        description: 'Developed scoring algorithms to assess and improve AI models resistance to malicious or misleading inputs.',
+      },
+      {
+        title: 'AI4AI Certification',
+        description: 'Created an optional certification program for users’ AI systems, validating their safety and alignment with RACES principles.',
+      },
+      {
+        title: 'Scalable Solutions',
+        description: `Built modular evaluation systems that adapt seamlessly to both individual and business needs.`,
+      },
+    ]}
+    image={{
+      src: 'https://images.unsplash.com/photo-1611462985358-60d3498e0364?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+      alt: 'Astronauts Image',
+    }}
+  >
+    <Fragment slot="content">Promoting trust and innovation in AI through safety-focused, actionable solutions.</Fragment>
+
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
+    </Fragment>
+  </Content>
+
+  <!-- Steps Widget ****************** -->
+
+  <Steps
+    title="Three Simple Steps to Safeguard Your AI Model with AI4AI"
+    items={[
+      {
+        title: 'Step 1: <span class="font-medium">Upload</span>',
+        description: 'Easily upload or link your AI model to AI4AI',
+        icon: 'tabler:package',
+      },
+      {
+        title: 'Step 2: <span class="font-medium">Evaluate</span>',
+        description: 'AI4AI performs a comprehensive evaluation',
+        icon: 'tabler:letter-case',
+      },
+      {
+        title: 'Step 3: <span class="font-medium">Improve and Safeguard</span>',
+        description: 'Receive suggestions and mitigate identified risks',
+        icon: 'tabler:paint',
+      },
+      {
+        title: 'Ready!',
+        icon: 'tabler:check',
+      },
+    ]}
+    image={{
+      src: 'https://images.unsplash.com/photo-1616198814651-e71f960c3180?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80',
+      alt: 'Steps image',
+    }}
+  />
+
+  <!-- HighlightedPosts Widget ******* -->
+
+  <BlogLatestPosts
+    title="Find out more content in our Blog"
+    information={`The blog is used to display AI4AI documentation.
+                        Each new article will be an important step that you will need to know to be an expert in evaluating AI models using AI4AI.
+                        AI4AI is a very interesting technology. Thanks.
+                `}
+  />
+
+  <!-- FAQs Widget ******************* -->
+
+  <FAQs
+    title="Frequently Asked Questions"
+    subtitle=""
+    tagline="FAQs"
+    classes={{ container: 'max-w-6xl' }}
+    items={[
+      {
+        title: 'What is AI4AI?',
+        description: 'AI4AI is a platform designed to evaluate AI models using the RACES framework—Rights, Accuracy, Context, Ethics, and Safety—offering assessments, vulnerability detection, and recommendations to improve model performance, ensuring safe and responsible AI deployment.',
+      },
+      {
+        title: 'How does AI4AI evaluate my AI model?',
+        description: 'AI4AI evaluates your AI model by analyzing it against key criteria such as rights, accuracy, context, ethics, and safety. This helps identify potential vulnerabilities, biases, and risks in the model’s predictions and behavior.',
+      },
+      {
+        title: 'Is my data safe with AI4AI?',
+        description: 'Yes, AI4AI prioritizes data privacy and security. All uploaded data is handled with the utmost confidentiality and in compliance with data protection regulations. Your AI model and its associated data are not shared or used for any purposes other than evaluation.',
+      },
+      {
+        title: 'Can I integrate AI4AI into my workflow or system?',
+        description: 'Yes, AI4AI can be integrated into your existing AI development and deployment pipeline through APIs, allowing for seamless evaluation and continuous improvement of your AI models.',
+      },
+      {
+        title: 'Can I improve my AI model using AI4AI?',
+        description: 'Yes, after evaluation, AI4AI provides personalized suggestions to improve your model’s performance, accuracy, and safety, helping you enhance its reliability and mitigate identified risks.',
+      },
+      {
+        title: 'Do I need to be a technical expert to use AI4AI?',
+        description: 'No, AI4AI is designed to be user-friendly, with tools and reports that are easy to understand, even for those without a technical background. However, technical users can dive deeper into the model evaluations for more advanced insights.',
+      },
+    ]}
+  />
+
+  <!-- Stats Widget ****************** -->
+
+  <Stats
+    stats={[
+      { title: 'Downloads', amount: '-' },
+      { title: 'Stars', amount: '-' },
+      { title: 'Likes', amount: '-' },
+      { title: 'Users', amount: '-' },
+    ]}
+  />
+
+  <!-- CallToAction Widget *********** -->
+
+  <CallToAction
+    actions={[
+      {
+        variant: 'primary',
+        text: 'Get AI 4 AI',
+        href: '',
+        target: '_blank',
+        icon: 'tabler:download',
+      },
+    ]}
+  >
+    <Fragment slot="title">
+      AI&nbsp;4&nbsp;<br class="block sm:hidden" /><span class="sm:whitespace-nowrap">AI</span>
+    </Fragment>
+
+    <Fragment slot="subtitle"> Download Now</Fragment>
+  </CallToAction>
+</Layout>
